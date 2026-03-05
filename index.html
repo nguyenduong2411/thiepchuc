@@ -163,20 +163,26 @@ opacity:0;
 
 </div>
 
-<audio autoplay loop>
-<source src="1000 Ánh Mắt.mp3">
+<audio id="music" loop>
+<source src="1000 Ánh Mắt.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
 const book=document.getElementById("book")
 const effects=document.getElementById("effects")
+const music=document.getElementById("music")
 
 book.onclick=()=>{
-book.classList.add("open")
-start()
-}
 
+book.classList.add("open")
+
+/* phát nhạc khi chạm */
+music.play().catch(()=>{})
+
+start()
+
+}
 /* TYPE TEXT */
 
 const msg=`Bé Dịt của anh,
