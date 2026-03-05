@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<title>Thiệp 8/3 💗</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+overflow:hidden;
+font-family:sans-serif;
+background:linear-gradient(135deg,#ff9ecb,#ffc0e0);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+/* EFFECT LAYER */
+
+.effects{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+}
+
+/* BOOK */
+
+.book{
+width:92vw;
+max-width:420px;
+height:75vh;
+perspective:1500px;
+z-index:5;
+}
+
+.page{
+width:100%;
+height:100%;
+position:absolute;
+border-radius:14px;
+background:white;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+transition:transform 1s;
+backface-visibility:hidden;
+}
+
+.cover{
+background:linear-gradient(45deg,#ff4fa3,#ff9ecb);
+color:white;
+font-size:32px;
+font-weight:bold;
+}
+
+.inside{
+transform:rotateY(-180deg);
+}
+
+.book.open .cover{
+transform:rotateY(-180deg);
+}
+
+.book.open .inside{
+transform:rotateY(0deg);
+}
+
+/* IMAGE */
+
+.love-img{
+width:180px;
+height:180px;
+border-radius:50%;
+object-fit:cover;
+border:6px solid pink;
+box-shadow:0 0 20px rgba(255,0,120,.5);
+margin-bottom:15px;
+}
+
+/* TEXT */
+
+.text{
+font-size:13px;
+color:#ff2f8b;
+text-align:center;
+font-weight:bold;
+min-height:90px;
+}
+
+/* ROSE */
+
+.rose{
+position:absolute;
+font-size:22px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh);
+opacity:0;
+}
+}
+
+/* HEART */
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:spiral 5s linear forwards;
+text-shadow:0 0 10px pink;
+}
+
+@keyframes spiral{
+
+0%{
+transform:translate(0,0) rotate(0);
+opacity:1;
+}
+
+100%{
+transform:translate(120px,-350px) rotate(720deg);
+opacity:0;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="effects" id="effects"></div>
+
+<div class="book" id="book">
+
+<div class="page cover">
+💗 Happy 8/3 💗
+</div>
+
+<div class="page inside">
+
+<img src="dit.jpg" class="love-img">
+
+<div id="text" class="text"></div>
+
+</div>
+
+</div>
+
+<audio autoplay loop>
+<source src="1000 Ánh Mắt.mp3">
+</audio>
+
+<script>
+
+const book=document.getElementById("book")
+const effects=document.getElementById("effects")
+
+book.onclick=()=>{
+book.classList.add("open")
+start()
+}
+
+/* TYPE TEXT */
+
+const msg=`Bé Dịt của anh,
+
+Nhân ngày 8/3 đặc biệt này 🌹, anh chỉ muốn em biết rằng em rất đặc biệt với anh. 
+Cảm ơn em vì đã đến bên anh, nhẹ nhàng nhưng đủ làm thế giới của anh thay đổi.
+
+Từ khi có em, những ngày bình thường cũng trở nên đặc biệt, những lúc mệt mỏi 
+cũng có lý do để cố gắng hơn 💪. Bé Dịt à, em không chỉ xinh đẹp ở bên ngoài 
+mà còn có một trái tim ấm áp và vô cùng dịu dàng 🥰. Cách em quan tâm anh 
+mỗi ngày khiến anh cảm thấy mình thực sự may mắn 🍀.
+
+Ngày 8/3 này, anh mong em luôn mạnh khỏe, luôn rạng rỡ và hạnh phúc 🌸. 
+Dù cuộc sống có những bận rộn hay đôi lúc áp lực, hãy nhớ rằng phía sau em 
+luôn có anh 😘 người sẵn sàng lắng nghe, sẵn sàng ôm em thật chặt và cùng 
+em vượt qua tất cả. 
+
+Anh muốn được nắm tay em thật lâu, cùng em đi qua thật nhiều mùa 8/3 nữa 🌹.
+
+Chúc Dịt của anh một ngày 8/3 thật ngọt ngào và trọn vẹn! 🌹🎁
+
+Anh yêu em nhiều lắm đóoo🫣💖`;
+let i=0
+
+function typeText(){
+
+if(i<msg.length){
+document.getElementById("text").innerHTML+=msg[i]
+i++
+setTimeout(typeText,55)
+}
+
+}
+
+/* ROSE */
+
+function rose(){
+
+const el=document.createElement("div")
+el.className="rose"
+el.innerHTML="🌹"
+
+el.style.left=Math.random()*100+"vw"
+el.style.animationDuration=4+Math.random()*3+"s"
+
+effects.appendChild(el)
+
+setTimeout(()=>el.remove(),7000)
+
+}
+
+/* HEART */
+
+function heart(){
+
+const el=document.createElement("div")
+el.className="heart"
+el.innerHTML="💗"
+
+el.style.left=Math.random()*100+"vw"
+el.style.top=Math.random()*80+"vh"
+
+effects.appendChild(el)
+
+setTimeout(()=>explode(el),2000)
+
+setTimeout(()=>el.remove(),5000)
+
+}
+
+/* HEART EXPLODE */
+
+function explode(parent){
+
+for(let i=0;i<4;i++){
+
+const h=document.createElement("div")
+
+h.innerHTML="💞"
+h.style.position="absolute"
+h.style.left=parent.style.left
+h.style.top=parent.style.top
+
+effects.appendChild(h)
+
+h.animate([
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${Math.random()*120-60}px,${Math.random()*120-60}px)`,opacity:0}
+],{duration:900})
+
+setTimeout(()=>h.remove(),900)
+
+}
+
+}
+
+/* BEAT HEART */
+
+function beat(){
+
+const el=document.createElement("div")
+
+el.innerHTML="💓"
+el.style.position="absolute"
+el.style.left=Math.random()*100+"vw"
+el.style.bottom="0"
+el.style.fontSize="24px"
+
+effects.appendChild(el)
+
+el.animate([
+{transform:"translateY(0)",opacity:1},
+{transform:"translateY(-300px)",opacity:0}
+],{duration:3500})
+
+setTimeout(()=>el.remove(),3500)
+
+}
+
+/* START */
+
+function start(){
+
+typeText()
+
+setInterval(rose,700)
+
+setInterval(heart,1200)
+
+setInterval(beat,1800)
+
+}
+
+</script>
+
+</body>
+</html>
